@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "app-frontend",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -7,6 +7,6 @@
     "build": "echo \"Error: nothing build\"",
     "test": "echo \"Error: no test specified\""
   },
-  "author": "Mahmoud Kassem",
+  "author": "",
   "license": "ISC"
 }

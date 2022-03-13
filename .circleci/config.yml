@@ -13,34 +13,34 @@ jobs:
       - aws-cli/setup
       - eb/setup
       - run:
-            name: Front-End Install
-            command: |
-              npm run frontend:install
+          name: Installing Front-End Dependencies
+          command: |
+            npm run frontend:install
       - run:
-            name: Back-End Install
-            command: |
-              npm run backend:install
+          name: Installing Back-End Dependencies
+          command: |
+            npm run backend:install
       - run:
-            name: Front-End Build
-            command: |
-              npm run frontend:build
+          name: Building Front-End
+          command: |
+            npm run frontend:build
       - run:
-            name: Back-End Build
-            command: |
-              npm run backend:build
+          name: Building Back-End
+          command: |
+            npm run backend:build
       - run:
-            name: Deploy App
-            command: |
-              npm run frontend:deploy
+          name: Deploying Front-End
+          command: |
+            npm run frontend:deploy
       - run:
-            name: Back-End Deploy
-            command: |
-              npm run backend:deploy  
+          name: Deploying Back-End
+          command: |
+            npm run backend:deploy
 workflows:
-    build-deploy:
-      jobs:
-        - build:
-            filters:
-              branches:
-                only: 
-                  - main
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - main
