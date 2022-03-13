@@ -4,73 +4,124 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quotes App</title>
+    <title>Quotes App CLI</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-      .container {
-        margin-top: 50px;
+      * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none !important;
+
+        font-family: "Fira Code", monospace;
+        background-color: #191919;
+        color: white;
+        font-weight: 400;
+      }
+
+      body {
+        padding: 2.5vh 2vw;
+      }
+
+      p {
+        font-size: 18px;
+        padding-top: 5px;
+        outline-width: 0;
+        outline: none;
+        word-wrap: break-word;
+        flex-grow: 1;
+      }
+
+      .cli-new-command,
+      .dollar-sign {
+        display: inline-block;
+        width: fit-content;
+        margin-right: 6px;
+        flex-grow: 0;
+      }
+
+      .input-line,
+      .new-command {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
       }
 
-      h1 {
-        font-size: 50px;
-        margin-bottom: 50px;
-        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      .command-section {
+        margin-top: 10px;
       }
 
-      .quotes {
-        margin-top: 50px;
-      }
-
-      .quote {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-      }
-
-      .quote-text {
-        font-size: 18px;
-        margin-bottom: 20px;
+      .quote span {
+        text-transform: uppercase;
         font-style: italic;
-        font-family: "Courier New", Courier, monospace;
       }
 
-      .quote-author {
-        font-size: 18px;
-        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-        text-align: end;
+      /* width of vertical & height of horizontal scrollbars */
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
       }
     </style>
   </head>
 
   <body>
-    <div class="container">
-      <h1>Software Quotes</h1>
-      <div class="quotes" id="quotes">
-        <p id="loading">Loading..</p>
-      </div>
-    </div>
+    <header>
+      <p>Software Quotes CLI</p>
+      <p>Copyright (C) NoBody. All rights aren't reserved.</p>
+      <p>< ibnsamy96@gmail.com || github:@ibnsamy96 ></p>
+    </header>
+    <br />
+    <main class="code-container">
+      <p class="cli-new-command">>_ C:\Users> get quotes</p>
+      <p id="loading"></p>
+    </main>
     <script type="text/javascript">
-      var endpoint =
+      const loadingDots = setInterval(() => {
+        document.querySelector("#loading").innerText += ".";
+      }, 500);
+
+      const endpoint =
         "http://fwd-proj-backend.eba-fhmev8cc.us-east-1.elasticbeanstalk.com";
+
       window.addEventListener("load", function (event) {
         fetch(`${endpoint}/quotes`)
           .then((response) => response.json())
           .then((quotes) => {
+            clearInterval(loadingDots);
             document.getElementById("loading").style.display = "none";
-            const quotesElement = document.getElementById("quotes");
+            const quotesElement = document.querySelector(".code-container");
             quotes.forEach((quote) => {
               const quoteElement = document.createElement("div");
-              quoteElement.classList.add("quote");
+              quoteElement.classList.add("input-line");
               quoteElement.innerHTML = `
-                        <div class="quote-text">${quote.text}</div>
-                        <div class="quote-author">${quote.author}</div>
+                        <p class="dollar-sign">$</p>
+                        <p class="quote">${quote.text}<span> - ${quote.author}</span></p>                        
                     `;
               quotesElement.appendChild(quoteElement);
             });
