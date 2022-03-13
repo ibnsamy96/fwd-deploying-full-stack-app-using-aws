@@ -13,8 +13,4 @@ const db: Pool = new Pool({
   database: process.env.DB_NAME,
 });
 
-(async function () {
-  await db.query();
-});
-
 export default db;
