@@ -28,7 +28,7 @@ I use it a bucket hosts the frontend files and provide an endpoint to be accesse
 
 ![Infrastructure diagram](docs/diagrams/app-flow-diagram.png)
 
-## Pipline
+## Pipeline
 
 CircleCI pipeline is triggered when a new commit is pushed to "main" branch
 
